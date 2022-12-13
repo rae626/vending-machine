@@ -42,19 +42,15 @@ public class Money {
         totalMoney = input.nextDouble();
     }
     public int[] changeDue(double totalMoneyReceived , double totalAmountOwed){
-        final int[] coins = {5,10,25};
+        final int[] coins = {25,10,5};
         int change = (int)(totalMoneyReceived - totalAmountOwed) * 100;
         int[] coinsReturned = new int[3];
         //double changeOwed = 0.0;
         //changeOwed = totalMoneyReceived - totalAmountOwed;
-        for(int i = 5; i>0; i--){
+        for(int i = 5; i>0; i++){
             coinsReturned[i] = change / coins[i];
             change %= coins[i];
-
         }
-
         return coinsReturned;
     }
-
-
 }
