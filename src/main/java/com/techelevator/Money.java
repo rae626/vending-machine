@@ -35,7 +35,7 @@ public class Money {
         return NICKEL;
     }
 
-    public static void moneyInserted(String[] args){
+    public static void moneyInserted(){
        double totalMoney = 0.0;
         Scanner input = new Scanner(System.in);
         System.out.println("Please Insert Money");
