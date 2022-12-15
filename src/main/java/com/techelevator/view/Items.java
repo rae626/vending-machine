@@ -7,13 +7,14 @@ public class Items {
     private double price;
     private int amount;
 
-
+    //Item superClass Constructor
     public Items(String id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
+    // ----- Setters and getters -----------
     public String getId() {
         return id;
     }
@@ -46,7 +47,9 @@ public class Items {
         this.amount = amount;
     }
 
+    // ------ end of sets and gets ------
+
     public String printMsg(){
         return "mmm, mmm this Item is good";
-    }
+    } // printMsg method to output message and allows subClasses to override the parent method.
 }

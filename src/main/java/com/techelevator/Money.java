@@ -9,9 +9,9 @@ public class Money {
     final double FIVE_DOLLAR_BILL = 5.00;
     final double ONE_DOLLAR_BILL = 1.00;
 
-    final double QUARTER = .25;
-    final double DIME = .10;
-    final double NICKEL = .05;
+    final static int QUARTER = 25;
+    final static int DIME = 10;
+    final static int NICKEL = 5;
 
 
     public Money() {
@@ -38,21 +38,21 @@ public class Money {
     }
 
     public static void moneyInserted(){
-       double totalMoney = 0.0;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please Insert Money");
-        totalMoney = input.nextDouble();
+        Scanner input = new Scanner(System.in); //created scanner to capture system input.
+        System.out.println("Please Insert Money"); //prints out instruction for user.
+        totalMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.
+        input.nextLine(); // adds a newline char to advance the system input.
     }
     public static int[] changeDue(double totalMoneyReceived, double totalAmountOwed){
-        final int[] coins = {25,10,5};
-        int change = (int)(totalMoneyReceived - totalAmountOwed) * 100;
-        int[] coinsReturned = new int[3];
+        final int[] coins = {NICKEL,DIME,QUARTER};  //Constant int[] called coins to hold the values of the coins
+        int change = (int)((totalMoneyReceived - totalAmountOwed) * 100); //calculates the amount of change and casts the result of it to an int
+        int[] coinsReturned = new int[3]; // creates a new int[] called coinsReturned and sets it to hold 3 values.
         //double changeOwed = 0.0;
         //changeOwed = totalMoneyReceived - totalAmountOwed;
-        for(int i = 5; i>0; i++){
-            coinsReturned[i] = change / coins[i];
-            change %= coins[i];
+        for(int i = 5; i>0; i++){  //for i starts at pos 2, i is greater than or equal to 0, decrement i by 1.
+            coinsReturned[i] = change / coins[i]; //coinsReturned[] position i = change divided by the value of coins array position i.
+            change %= coins[i]; //change is mod or equal to coins array position i
         }
-        return coinsReturned;
+        return coinsReturned; //return the array coinsReturned[]
     }
 }

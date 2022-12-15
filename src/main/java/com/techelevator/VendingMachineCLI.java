@@ -28,21 +28,21 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() {
+	public void run() { //this is the main start menu
 
-		addItemsToInventory();
+		addItemsToInventory(); //restocks the vendingMachine
 
 		while (true) {
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); // sets String choice equal to String casted result of the method menu.getChoiceFromOptions
 
-			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				printInventory();
+			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { //if user selects first option...
+				printInventory(); // calls the printInventory from within the class to display items
 
-			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				menu2();
+			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) { //if user selects the second option...
+				menu2(); // calls for menu2 to be ran from SecondMenu.
 
-			}else if (choice.equals(MAIN_MENU_OPTION_Exit)) {
-				System.exit(1);
+			}else if (choice.equals(MAIN_MENU_OPTION_Exit)) { //if user selects the third option...
+				System.exit(1); //application exits...
 			}
 
 		}
@@ -54,10 +54,11 @@ public class VendingMachineCLI {
 		cli.run();
 	}
 
+	//menu2 method
 	public static void menu2(){
-		Menu menu2 = new Menu(System.in, System.out);
-		SecondMenu second = new SecondMenu(menu2);
-		second.run2();
+		Menu menu2 = new Menu(System.in, System.out); //creates a menu obj to receive input and output.
+		SecondMenu second = new SecondMenu(menu2); // creates a second menu object and passes the menu2.
+		second.run2(); // calls the run2 method from SecondMenu to display other options.
 	}
 
 	public static void addItemsToInventory(){
@@ -93,16 +94,18 @@ public class VendingMachineCLI {
 				}
 			}
 
-		}catch(FileNotFoundException fnaf){
-			System.err.println("File was NOT FOUND...");
-			System.out.println("Now exiting...");
-			System.exit(1);
+		}catch(FileNotFoundException fnaf){ //catches the FileNotFoundException
+			System.err.println("File was NOT FOUND..."); //prints out file was not found
+			System.out.println("Now exiting..."); // warns that application is going to exit
+			System.exit(404); // exits with a 404 code for NotFound
 		}
 	}
 
-	public static void printInventory(){
-		for (int i=0; i < inventory.size(); i++){
-			System.out.println(inventory.get(i).getId() + " " + inventory.get(i).getName()+ " " + inventory.get(i).getPrice()+" ("+inventory.get(i).getAmount()+")");		}
+	public static void printInventory(){ //prints out the inventory
+		for (int i=0; i < inventory.size(); i++){ //for i = 0, i is less than the size of inventory, increment i by 1
+			//displays the Item in inventory's i position and returns the ID, the name, the price and the amount of that item.
+			System.out.println(inventory.get(i).getId() + " " + inventory.get(i).getName()+ " " + inventory.get(i).getPrice()+" ("+inventory.get(i).getAmount()+")");
+		}
 	}
 
 

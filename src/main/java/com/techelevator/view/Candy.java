@@ -4,11 +4,13 @@ public class Candy extends Items{
     private String type;
     private int amount;
 
+    // ------ Setters and getters ------
     public Candy(String id, String name, double price, String type) {
         super(id, name, price);
         this.type = type;
         this.amount = 5;
     }
+
 
     public String getType() {
         return type;
@@ -26,10 +28,12 @@ public class Candy extends Items{
         this.amount = amount;
     }
 
+    // ------ End of Sets and gets ------
+
     @Override
     public String printMsg() {
         return "Munch Munch, Yum!";
-    }
+    } //Overrides the Item printMsg with its own.
 
 
 }

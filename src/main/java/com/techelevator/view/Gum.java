@@ -6,12 +6,14 @@ public class Gum extends Items {
     private String type;
     private int amount;
 
+    // Subclass constructor
     public Gum(String id, String name, double price, String type) {
         super(id, name, price);
         this.type = type;
         this.amount = 5;
     }
 
+    // ------- Setters and Getters ------
     public String getType() {
         return type;
     }
@@ -28,9 +30,11 @@ public class Gum extends Items {
         this.amount = amount;
     }
 
+    // ------ end of sets and gets
+
     @Override
     public String printMsg() {
         return "Chew Chew, Yum!";
-    }
+    } //overrides the Parent Item printMsg with its own message.
 
 }

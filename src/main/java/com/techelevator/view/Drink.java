@@ -4,12 +4,14 @@ public class Drink extends Items {
     private String type;
     private int amount;
 
+    //Drink subclass Constructor
     public Drink(String id, String name, double price, String type) {
         super(id, name, price);
         this.type = type;
         this.amount = 5;
     }
 
+    // ------ setters and getters ------
     public String getType() {
         return type;
     }
@@ -28,8 +30,9 @@ public class Drink extends Items {
         this.amount = amount;
     }
 
+    // ------ end of sets and gets ------
     @Override
     public String printMsg(){
         return "Glug Glug, Yum!";
-    }
+    } //overrides the Item printMsg method with its own version
 }

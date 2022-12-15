@@ -5,12 +5,14 @@ public class Chips extends Items {
     private String type;
     private int amount;
 
+    //Chips subclass constructor
     public Chips(String id, String name, double price, String type) {
         super(id, name, price);
         this.type = type;
         this.amount = 5;
     }
 
+    // ------ Setters and getters ------
     public String getType() {
         return type;
     }
@@ -27,9 +29,12 @@ public class Chips extends Items {
         this.amount = amount;
     }
 
+    // ------ end of sets and gets -------
+
+
     @Override
     public String printMsg() {
         return "Crunch Crunch, Yum!";
-    }
+    } // Overrides the Item printMsg method with its own version.
 
 }
