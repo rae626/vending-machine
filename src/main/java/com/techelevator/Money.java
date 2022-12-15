@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Money {
 
+    public static double totalMoney = 0.0;
+    public static double remainingMoney = 0.0;
     final double FIVE_DOLLAR_BILL = 5.00;
     final double ONE_DOLLAR_BILL = 1.00;
 
@@ -41,7 +43,7 @@ public class Money {
         System.out.println("Please Insert Money");
         totalMoney = input.nextDouble();
     }
-    public int[] changeDue(double totalMoneyReceived , double totalAmountOwed){
+    public static int[] changeDue(double totalMoneyReceived, double totalAmountOwed){
         final int[] coins = {25,10,5};
         int change = (int)(totalMoneyReceived - totalAmountOwed) * 100;
         int[] coinsReturned = new int[3];

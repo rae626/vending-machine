@@ -12,9 +12,16 @@ public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String MAIN_MENU_OPTION_EXIT =	"Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
- 	private static List<Items> inventory = new ArrayList<>();
+	private static final String MAIN_MENU_OPTION_Exit = "Exit";
+
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_Exit };
+
+	public static List<Items> inventory = new ArrayList<>();
+
+	public static List<Items> getInventory() {
+		return inventory;
+	}
+
 	private Menu menu;
 
 	public VendingMachineCLI(Menu menu) {
@@ -22,19 +29,22 @@ public class VendingMachineCLI {
 	}
 
 	public void run() {
+
+		addItemsToInventory();
+
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			addItemsToInventory();
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// display vending machine items
-
-          printInventory();
+				printInventory();
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
-					menu2();
+				menu2();
+
+			}else if (choice.equals(MAIN_MENU_OPTION_Exit)) {
+				System.exit(1);
 			}
+
 		}
 	}
 
@@ -42,48 +52,46 @@ public class VendingMachineCLI {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
-
 	}
 
 	public static void menu2(){
-		Menu pMenu = new Menu(System.in, System.out);
-		SecondMenu second = new SecondMenu(pMenu);
+		Menu menu2 = new Menu(System.in, System.out);
+		SecondMenu second = new SecondMenu(menu2);
 		second.run2();
 	}
 
 	public static void addItemsToInventory(){
 
-		File file = new File("vendingmachine.csv");
-		try(Scanner inventoryScanner = new Scanner(file)){
+		File file = new File("vendingmachine.csv");  //creates a file obj to refrence vendingMachine.csv.
+		try(Scanner inventoryScanner = new Scanner(file)){   //creates scanner obj to scan the csv file.
 
-			while(inventoryScanner.hasNextLine()){
-				String line = inventoryScanner.nextLine();
-				String[] bucket = line.split("\\|");
-				String q = bucket[0];
-				String w = bucket[1];
-				double e = Double.parseDouble(bucket[2]);
-				String r = bucket[3];
+			while(inventoryScanner.hasNextLine()){   //while the csv file has a nextline.
+				String line = inventoryScanner.nextLine();  // assign that line of txt to a string var named line.
+				String[] bucket = line.split("\\|");  //create a String[] called bucket and add the result of line split by the "|".
+				String q = bucket[0];  //assigns the 0 position of i to String q which is the ID.
+				String w = bucket[1];  //assigns the 1 position of i to String w which is the Name.
+				double e = Double.parseDouble(bucket[2]); //assigns the 2 position of i to Double e which is the Price.
+				String r = bucket[3]; //assign the 3 position of i to String r which is the type of item it is.
 
-
-				if(r.equals("Chip")){
-					Chips newChips = new Chips(q,w,e,r);
-					inventory.add(newChips);
-				} else if (r.equals("Candy")){
-					Candy newCandy = new Candy(q,w,e,r);
-					inventory.add(newCandy);
-				} else if (r.equals("Drink")){
-					Drink newDrink = new Drink(q,w,e,r);
-					inventory.add(newDrink);
-				} else if (r.equals("Gum")){
-					Gum newGum = new Gum(q,w,e,r);
-					inventory.add(newGum);
+				switch (r) {  //
+					case "Chip":  // the String r equals type chip.
+						Chips newChips = new Chips(q, w, e, r); // create a chip object along with id name and price.
+						inventory.add(newChips); // add the chip item to inventory.
+						break; //break from switch.
+					case "Candy": //the String r equals type candy.
+						Candy newCandy = new Candy(q, w, e, r); // // create a candy object along with id name and price.
+						inventory.add(newCandy); //add the candy item to inventory.
+						break; //break from switch.
+					case "Drink": //the String r equals type drink.
+						Drink newDrink = new Drink(q, w, e, r); // // create a drink object along with id name and price.
+						inventory.add(newDrink); //add the candy item to inventory.
+						break; //break from switch.
+					case "Gum": //the String r equals type gum.
+						Gum newGum = new Gum(q, w, e, r);  // create a gum object along with id name and price.
+						inventory.add(newGum); // add the gum item to inventory.
+						break; //break from switch
 				}
-
-
 			}
-
-			System.out.println("There are "+ inventory.size() + "Items in the Inventory");
-
 
 		}catch(FileNotFoundException fnaf){
 			System.err.println("File was NOT FOUND...");
@@ -91,10 +99,13 @@ public class VendingMachineCLI {
 			System.exit(1);
 		}
 	}
-	public static void printInventory() {
-		for (int i = 0; i < inventory.size(); i++) {
-			System.out.println(inventory.get(i).getID() + " " + inventory.get(i).getName());
-		}
+
+	public static void printInventory(){
+		for (int i=0; i < inventory.size(); i++){
+			System.out.println(inventory.get(i).getId() + " " + inventory.get(i).getName()+ " " + inventory.get(i).getPrice()+" ("+inventory.get(i).getAmount()+")");		}
 	}
+
+
+
 }
 
