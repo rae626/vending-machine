@@ -56,7 +56,7 @@ public class SecondMenu {
         String choice = prodChoice.nextLine(); //Sets a String called choice to equal the captured input from prodChoice.
 
         //Loops the ID string and matches it to an Item object's getID method
-        for(int i = 0; i < choice.length();i++) // for i is equal to 0 and i is less than the size of inventory
+        for(int i = 0; i < inventory.size();i++) // for i is equal to 0 and i is less than the size of inventory
             if(choice.equals(inventory.get(i).getId())){ //if choice is equal to the i position in the List inventory then ...
                 if(inventory.get(i).getPrice() < Money.totalMoney){  //if i position in inventory method getPrice is less than the static Var totalMoney....
                     if(inventory.get(i).getAmount() > 0){  // if i position in inventory method getAmount is greater than 0...
@@ -71,6 +71,7 @@ public class SecondMenu {
                             Money.remainingMoney = Money.totalMoney - Cart.get(p).getPrice(); //sets the static var remainingMoney to equal the result of Static var totalmoney and the price of the item selected
                             System.out.println(Cart.get(p).getName()+" "+Cart.get(p).getPrice()+" Balance remaining: $"+Money.remainingMoney); // prints the the item bought and the price along with the balance remaining
                             System.out.println(Cart.get(p).printMsg()); // prints out the items message
+                            Money.totalMoney = Money.remainingMoney;
                         }
 
 
@@ -95,7 +96,8 @@ public class SecondMenu {
     public static void finalizeTrans(){
         //logger log
         //dispense change
-        System.out.println(new String(Money.changeDue(Money.remainingMoney,Money.totalMoney )));
+        System.out.println(new String(Money.changeDue(Money.totalMoney ))); //prints out correct change
+        System.exit(1); // exits the app.
 
 
 

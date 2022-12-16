@@ -74,7 +74,7 @@ public class VendingMachineCLI {
 				double e = Double.parseDouble(bucket[2]); //assigns the 2 position of i to Double e which is the Price.
 				String r = bucket[3]; //assign the 3 position of i to String r which is the type of item it is.
 
-				switch (r) {  //
+				switch (r) {  //switch depends on the String r
 					case "Chip":  // the String r equals type chip.
 						Chips newChips = new Chips(q, w, e, r); // create a chip object along with id name and price.
 						inventory.add(newChips); // add the chip item to inventory.
