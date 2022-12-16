@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static com.techelevator.VendingMachineCLI.inventory;
+import static com.techelevator.VendingMachineCLI.main;
 
 public class SecondMenu {
 
@@ -95,9 +96,8 @@ public class SecondMenu {
 
     public static void finalizeTrans(){
         //logger log
-        //dispense change
         System.out.println(new String(Money.changeDue(Money.totalMoney ))); //prints out correct change
-        System.exit(1); // exits the app.
+        VendingMachineCLI.run(); //returns to the main menu after giving the change.
 
 
 

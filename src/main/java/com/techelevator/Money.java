@@ -37,6 +37,14 @@ public class Money {
         return NICKEL;
     }
 
+    public static double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public static void setTotalMoney(double totalMoney) {
+        Money.totalMoney = totalMoney;
+    }
+
     public static void moneyInserted() {
         Scanner input = new Scanner(System.in); //created scanner to capture system input.
         System.out.print("Please Insert Money amount: $"); //prints out instruction for user.

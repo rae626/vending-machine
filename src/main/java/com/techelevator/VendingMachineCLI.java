@@ -22,15 +22,13 @@ public class VendingMachineCLI {
 		return inventory;
 	}
 
-	private Menu menu;
+	private static Menu menu;
 
 	public VendingMachineCLI(Menu menu) {
-		this.menu = menu;
+		VendingMachineCLI.menu = menu;
 	}
 
-	public void run() { //this is the main start menu
-
-		addItemsToInventory(); //restocks the vendingMachine
+	public static void run() { //this is the main start menu
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); // sets String choice equal to String casted result of the method menu.getChoiceFromOptions
@@ -51,6 +49,7 @@ public class VendingMachineCLI {
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
+		addItemsToInventory(); //restocks the vendingMachine
 		cli.run();
 	}
 
