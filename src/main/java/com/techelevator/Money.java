@@ -37,22 +37,28 @@ public class Money {
         return NICKEL;
     }
 
-    public static void moneyInserted(){
+    public static void moneyInserted() {
         Scanner input = new Scanner(System.in); //created scanner to capture system input.
         System.out.println("Please Insert Money"); //prints out instruction for user.
         totalMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.
         input.nextLine(); // adds a newline char to advance the system input.
     }
-    public static int[] changeDue(double totalMoneyReceived, double totalAmountOwed){
-        final int[] coins = {NICKEL,DIME,QUARTER};  //Constant int[] called coins to hold the values of the coins
-        int change = (int)((totalMoneyReceived - totalAmountOwed) * 100); //calculates the amount of change and casts the result of it to an int
+
+    public static String changeDue(double totalMoneyReceived, double totalAmountOwed) {
+        final int[] coins = {NICKEL, DIME, QUARTER};  //Constant int[] called coins to hold the values of the coins
+        int change = (int) ((totalMoneyReceived - totalAmountOwed) * 100); //calculates the amount of change and casts the result of it to an int
         int[] coinsReturned = new int[3]; // creates a new int[] called coinsReturned and sets it to hold 3 values.
         //double changeOwed = 0.0;
         //changeOwed = totalMoneyReceived - totalAmountOwed;
-        for(int i = 5; i>0; i++){  //for i starts at pos 2, i is greater than or equal to 0, decrement i by 1.
+        for (int i = 2; i >= 0; i--) {  //for i starts at pos 2, i is greater than or equal to 0, decrement i by 1.
             coinsReturned[i] = change / coins[i]; //coinsReturned[] position i = change divided by the value of coins array position i.
             change %= coins[i]; //change is mod or equal to coins array position i
+
+
         }
-        return coinsReturned; //return the array coinsReturned[]
+        //System.out.println("Quarters: " + coinsReturned [2] + " Dimes: " + coinsReturned [1] + " Nickels: " + coinsReturned[0] );
+        //return coinsReturned;
+        return ("Quarters: " + coinsReturned[2] + " Dimes: " + coinsReturned [1] + " Nickels: " + coinsReturned[0] );
     }
 }
+

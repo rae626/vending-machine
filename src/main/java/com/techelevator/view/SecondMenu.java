@@ -95,8 +95,7 @@ public class SecondMenu {
     public static void finalizeTrans(){
         //logger log
         //dispense change
-        System.out.println(Arrays.toString(Money.changeDue(Money.remainingMoney,Money.totalMoney )));
-
+        System.out.println(new String(Money.changeDue(Money.remainingMoney,Money.totalMoney )));
 
 
 
