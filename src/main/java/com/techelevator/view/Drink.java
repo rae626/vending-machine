@@ -5,8 +5,8 @@ public class Drink extends Items {
     private int amount;
 
     //Drink subclass Constructor
-    public Drink(String id, String name, double price, String type) {
-        super(id, name, price);
+    public Drink(String id, String name, double price, String type, int pos) {
+        super(id, name, price, pos);
         this.type = type;
         this.amount = 5;
     }

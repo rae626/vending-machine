@@ -50,6 +50,10 @@ public class VendingMachineCLI {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		addItemsToInventory(); //restocks the vendingMachine
+
+		for (int i = 0; i < inventory.size(); i++) { //loops through the inventory to add items to map
+			SecondMenu.itemKeys.put(inventory.get(i).getId(),inventory.get(i)); //add elements to map {key = items ID value = Item object}
+		}
 		cli.run();
 	}
 
@@ -64,7 +68,7 @@ public class VendingMachineCLI {
 
 		File file = new File("vendingmachine.csv");  //creates a file obj to refrence vendingMachine.csv.
 		try(Scanner inventoryScanner = new Scanner(file)){   //creates scanner obj to scan the csv file.
-
+		int counter = 0;
 			while(inventoryScanner.hasNextLine()){   //while the csv file has a nextline.
 				String line = inventoryScanner.nextLine();  // assign that line of txt to a string var named line.
 				String[] bucket = line.split("\\|");  //create a String[] called bucket and add the result of line split by the "|".
@@ -72,23 +76,27 @@ public class VendingMachineCLI {
 				String w = bucket[1];  //assigns the 1 position of i to String w which is the Name.
 				double e = Double.parseDouble(bucket[2]); //assigns the 2 position of i to Double e which is the Price.
 				String r = bucket[3]; //assign the 3 position of i to String r which is the type of item it is.
-
+				int t = counter; // counter to assign the position of the item to later use in the addItemToCart method.
 				switch (r) {  //switch depends on the String r
 					case "Chip":  // the String r equals type chip.
-						Chips newChips = new Chips(q, w, e, r); // create a chip object along with id name and price.
+						Chips newChips = new Chips(q, w, e, r, t); // create a chip object along with id name and price.
 						inventory.add(newChips); // add the chip item to inventory.
+						counter++; //increment counter by 1
 						break; //break from switch.
 					case "Candy": //the String r equals type candy.
-						Candy newCandy = new Candy(q, w, e, r); // // create a candy object along with id name and price.
+						Candy newCandy = new Candy(q, w, e, r, t); // // create a candy object along with id name and price.
 						inventory.add(newCandy); //add the candy item to inventory.
+						counter++; //increment counter by 1
 						break; //break from switch.
 					case "Drink": //the String r equals type drink.
-						Drink newDrink = new Drink(q, w, e, r); // // create a drink object along with id name and price.
+						Drink newDrink = new Drink(q, w, e, r,t); // // create a drink object along with id name and price.
 						inventory.add(newDrink); //add the candy item to inventory.
+						counter++; //increment counter by 1
 						break; //break from switch.
 					case "Gum": //the String r equals type gum.
-						Gum newGum = new Gum(q, w, e, r);  // create a gum object along with id name and price.
+						Gum newGum = new Gum(q, w, e, r, t);  // create a gum object along with id name and price.
 						inventory.add(newGum); // add the gum item to inventory.
+						counter++; //increment counter by 1
 						break; //break from switch
 				}
 			}

@@ -6,8 +6,8 @@ public class Chips extends Items {
     private int amount;
 
     //Chips subclass constructor
-    public Chips(String id, String name, double price, String type) {
-        super(id, name, price);
+    public Chips(String id, String name, double price, String type, int pos) {
+        super(id, name, price, pos);
         this.type = type;
         this.amount = 5;
     }

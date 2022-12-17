@@ -4,13 +4,9 @@ package com.techelevator.view;
 import com.techelevator.Money;
 import com.techelevator.VendingMachineCLI;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import static com.techelevator.VendingMachineCLI.inventory;
-import static com.techelevator.VendingMachineCLI.main;
+import static com.techelevator.VendingMachineCLI.*;
 
 public class SecondMenu {
 
@@ -21,6 +17,8 @@ public class SecondMenu {
     private static final String[] MENU_OPTIONS = {MENU_OPTION_FEEDMONEY, MENU_OPTION_SELECT, MENU_OPTION_FINISH}; //created a constant String[] to hold the menu options.
 
     public static List<Items> Cart = new ArrayList<>(); // added a List to hold Item objects like candy,gum,drink,chips
+    public static Map<String, Items> itemKeys = new HashMap<>(); // Map containing Ids and Items to access their values
+
 
     private Menu menu2; //created a Menu object called menu2
 
@@ -33,7 +31,7 @@ public class SecondMenu {
 
         while (true) { //while the condition is true
             String choice = (String) menu2.getChoiceFromOptions(MENU_OPTIONS); // sets String choice equal to String casted result of the method menu2.getChoiceFromOptions
-                System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney+"\n");
+            System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney + "\n");
             if (choice.equals(MENU_OPTION_FEEDMONEY)) { //if user selects first option...
                 Money.moneyInserted(); //calls the static method from the money class to add money
 
@@ -47,8 +45,10 @@ public class SecondMenu {
         }
     }
 
+
+
     public static void selectProduct() {
-        //prints inventory
+
         VendingMachineCLI.printInventory(); //calls the printInventory method from VendingMachineCLI.
 
         //Asks for users product choice
@@ -60,44 +60,44 @@ public class SecondMenu {
         //Loops the ID string and matches it to an Item object's getID method
 
 
+        if(itemKeys.containsKey(choice)) { //if the map contains the key stored in String choice.... move on to next if statement
+            if(itemKeys.get(choice).getAmount() != 0){ // if the item's getAmount in the map is not 0.... move on to next statement
+                if(Money.totalMoney != 0 && itemKeys.get(choice).getPrice() < Money.totalMoney){ //if total Money is not 0 and the item's getPrice is less than the totalMoney.... move on to next statement
 
-        for (int i = 0; i < inventory.size(); i++) { // for i is equal to 0 and i is less than the size of inventory
-            if (choice.equals(inventory.get(i).getId())) { //if choice is equal to the i positions getID in the List inventory then ...
-                if (inventory.get(i).getPrice() < Money.totalMoney) {  //if i position in inventory method getPrice is less than the static Var totalMoney....
-                    if (inventory.get(i).getAmount() > 0) {  // if i position in inventory method getAmount is greater than 0...
+                    addItemToCart(itemKeys.get(choice).getPos()); //calls on addItemToCart method  and passes along the item's getPos in the map.
 
-                        Cart.add(inventory.get(i)); // add the i position of inventory to the cart list.
-                        inventory.get(i).setAmount(inventory.get(i).getAmount() - 1); // the i postion in inventory setAmount method gets called and sets it to equal one less.
-
-                        //**Debug**
-                        //System.out.println("Cart size is: "+Cart.size());
-
-                        for (int p = 0; p < Cart.size(); p++) {  //for int p is = 0 and p is less than the size of cart increment p by 1.
-                            Money.remainingMoney = Money.totalMoney - Cart.get(p).getPrice(); //sets the static var remainingMoney to equal the result of Static var totalmoney and the price of the item selected
-                            System.out.println(Cart.get(p).getName() + " " + Cart.get(p).getPrice() + " Balance remaining: $" + Money.remainingMoney); // prints the the item bought and the price along with the balance remaining
-                            System.out.println(Cart.get(p).printMsg()); // prints out the items message
-                            Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
-                        }
-
-
-                    } else {  //if the amount of the item is equal to 0
-                        System.err.println("Amount of Item is 0"); // prints out the error
-                    }
-
-                } else { //if the funds are less than what the item costs
-                    System.err.println("Insufficient Funds"); // prints out the error
+                }else{ //if the item price is bigger than the totalMoney or totalMoney IS 0...
+                    System.out.println("INSUFFICIENT Funds.."); //prints error
                 }
-
-
-                //**DEBUG** to check how much is left of the Item stock after the selection
-                //System.out.println(inventory.get(i).getAmount());
-            } else { //if the funds are less than what the item costs
-                System.err.println("Incorrect Id"); // prints out the error
-                break;
+            }else{  //if the item's getAmount is 0 ....
+                System.out.println("Item is SOLD OUT.."); //prints error
             }
-
+        } else{  //if the map does not contain the ID stored in String choice....
+            System.out.println("item ID is NOT VALID.."); //print error
         }
     }
+
+    public static void addItemToCart(int position){
+        Cart.add(inventory.get(position)); // add the i position of inventory to the cart list.
+        inventory.get(position).setAmount(inventory.get(position).getAmount() - 1); // the i position in inventory setAmount method gets called and sets it to equal one less.
+
+        //**Debug**
+        //System.out.println("Cart size is: "+Cart.size());
+
+        for (int p = 0; p < Cart.size();) {  //for int p is = 0 and p is less than the size of cart p doesn't need to be incremented because there's only 1 item in the cart at a time.
+            Money.remainingMoney = Money.totalMoney - Cart.get(p).getPrice(); //sets the static var remainingMoney to equal the result of Static var totalmoney and the price of the item selected
+            System.out.println(Cart.get(p).getName() + " " + Cart.get(p).getPrice() + " Balance remaining: $" + Money.remainingMoney); // prints the item bought and the price along with the balance remaining
+            System.out.println(Cart.get(p).printMsg()); // prints out the items message
+            Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
+            Log.log(Cart.get(p).getName(),Cart.get(p).getPrice(), Money.totalMoney ); //logs the action
+            break;
+
+        }
+
+    }
+
+
+
 
 
     public static void finalizeTrans(){

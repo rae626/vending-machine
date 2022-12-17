@@ -6,15 +6,27 @@ public class Items {
     private String name;
     private double price;
     private int amount;
+    private int pos;
 
     //Item superClass Constructor
-    public Items(String id, String name, double price) {
+    public Items(String id, String name, double price, int pos) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.pos = pos;
     }
 
     // ----- Setters and getters -----------
+
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
     public String getId() {
         return id;
     }

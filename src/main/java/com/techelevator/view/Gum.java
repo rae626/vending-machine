@@ -7,8 +7,8 @@ public class Gum extends Items {
     private int amount;
 
     // Subclass constructor
-    public Gum(String id, String name, double price, String type) {
-        super(id, name, price);
+    public Gum(String id, String name, double price, String type, int pos) {
+        super(id, name, price, pos);
         this.type = type;
         this.amount = 5;
     }
