@@ -58,8 +58,6 @@ public class SecondMenu {
         String choice = prodChoice.nextLine().toUpperCase(); //Sets a String called choice to equal the captured input from prodChoice.
 
         //Loops the ID string and matches it to an Item object's getID method
-
-
         if(itemKeys.containsKey(choice)) { //if the map contains the key stored in String choice.... move on to next if statement
             if(itemKeys.get(choice).getAmount() != 0){ // if the item's getAmount in the map is not 0.... move on to next statement
                 if(Money.totalMoney != 0 && itemKeys.get(choice).getPrice() < Money.totalMoney){ //if total Money is not 0 and the item's getPrice is less than the totalMoney.... move on to next statement
@@ -78,22 +76,17 @@ public class SecondMenu {
     }
 
     public static void addItemToCart(int position){
-        Cart.add(inventory.get(position)); // add the i position of inventory to the cart list.
-        inventory.get(position).setAmount(inventory.get(position).getAmount() - 1); // the i position in inventory setAmount method gets called and sets it to equal one less.
-
         //**Debug**
         //System.out.println("Cart size is: "+Cart.size());
 
-        for (int p = 0; p < Cart.size();) {  //for int p is = 0 and p is less than the size of cart p doesn't need to be incremented because there's only 1 item in the cart at a time.
-            Money.remainingMoney = Money.totalMoney - Cart.get(p).getPrice(); //sets the static var remainingMoney to equal the result of Static var totalmoney and the price of the item selected
-            System.out.println(Cart.get(p).getName() + " " + Cart.get(p).getPrice() + " Balance remaining: $" + Money.remainingMoney); // prints the item bought and the price along with the balance remaining
-            System.out.println(Cart.get(p).printMsg()); // prints out the items message
-            Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
-            Log.log(Cart.get(p).getName(),Cart.get(p).getPrice(), Money.totalMoney ); //logs the action
-            break;
-
-        }
-
+        Cart.add(inventory.get(position)); //adds the item from the inventory List to the cart List
+        inventory.get(position).setAmount(inventory.get(position).getAmount() - 1); // subtracts the item from the inventory List
+        Money.remainingMoney = Money.totalMoney - Cart.get(0).getPrice(); // subtracts the price from your balance
+        System.out.println(Cart.get(0).getName() + " " + Cart.get(0).getPrice() + " Balance remaining: $" + Money.remainingMoney); //prints out name,price and balance after you buy.
+        System.out.println(Cart.get(0).printMsg()); // prints out the items message
+        Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
+        Log.log(Cart.get(0).getName(),Cart.get(0).getPrice(), Money.totalMoney ); //logs the action
+        Cart.clear(); //clears the cart list for the next item
     }
 
 
