@@ -1,6 +1,10 @@
 package com.techelevator;
 
+import com.techelevator.view.Log;
+
 import java.util.Scanner;
+
+import static com.techelevator.VendingMachineCLI.inventory;
 
 public class Money {
 
@@ -48,8 +52,10 @@ public class Money {
     public static void moneyInserted() {
         Scanner input = new Scanner(System.in); //created scanner to capture system input.
         System.out.print("Please Insert Money amount: $"); //prints out instruction for user.
-        totalMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.
+        double addedMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.
+        totalMoney += addedMoney;
         input.nextLine(); // adds a newline char to advance the system input.
+        Log.log("FEED MONEY:", addedMoney,totalMoney ); //logs the action
     }
 
     public static String changeDue(double totalMoneyReceived) {
@@ -62,6 +68,8 @@ public class Money {
             coinsReturned[i] = change / coins[i]; //coinsReturned[] position i = change divided by the value of coins array position i.
             change %= coins[i]; //change is mod or equal to coins array position i
         }
+
+
 
 
         //System.out.println("Quarters: " + coinsReturned [2] + " Dimes: " + coinsReturned [1] + " Nickels: " + coinsReturned[0] );

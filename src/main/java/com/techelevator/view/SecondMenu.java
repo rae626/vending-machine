@@ -30,9 +30,10 @@ public class SecondMenu {
 
     //menu2 Constructor
     public void run2() { //run2 is the second menu when you select purchase from the main menu
+
         while (true) { //while the condition is true
             String choice = (String) menu2.getChoiceFromOptions(MENU_OPTIONS); // sets String choice equal to String casted result of the method menu2.getChoiceFromOptions
-
+                System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney+"\n");
             if (choice.equals(MENU_OPTION_FEEDMONEY)) { //if user selects first option...
                 Money.moneyInserted(); //calls the static method from the money class to add money
 
@@ -46,7 +47,7 @@ public class SecondMenu {
         }
     }
 
-    public static void selectProduct(){
+    public static void selectProduct() {
         //prints inventory
         VendingMachineCLI.printInventory(); //calls the printInventory method from VendingMachineCLI.
 
@@ -54,25 +55,28 @@ public class SecondMenu {
         Scanner prodChoice = new Scanner(System.in); //creates a Scanner obj called prodChoice.
         System.out.println("---------------------------------"); // to establish a border.
         System.out.print("Select Product: ");  //prints out instruction.
-        String choice = prodChoice.nextLine(); //Sets a String called choice to equal the captured input from prodChoice.
+        String choice = prodChoice.nextLine().toUpperCase(); //Sets a String called choice to equal the captured input from prodChoice.
 
         //Loops the ID string and matches it to an Item object's getID method
-        for(int i = 0; i < inventory.size();i++) // for i is equal to 0 and i is less than the size of inventory
-            if(choice.equals(inventory.get(i).getId())){ //if choice is equal to the i position in the List inventory then ...
-                if(inventory.get(i).getPrice() < Money.totalMoney){  //if i position in inventory method getPrice is less than the static Var totalMoney....
-                    if(inventory.get(i).getAmount() > 0){  // if i position in inventory method getAmount is greater than 0...
+
+
+
+        for (int i = 0; i < inventory.size(); i++) { // for i is equal to 0 and i is less than the size of inventory
+            if (choice.equals(inventory.get(i).getId())) { //if choice is equal to the i positions getID in the List inventory then ...
+                if (inventory.get(i).getPrice() < Money.totalMoney) {  //if i position in inventory method getPrice is less than the static Var totalMoney....
+                    if (inventory.get(i).getAmount() > 0) {  // if i position in inventory method getAmount is greater than 0...
 
                         Cart.add(inventory.get(i)); // add the i position of inventory to the cart list.
-                        inventory.get(i).setAmount(inventory.get(i).getAmount()-1); // the i postion in inventory setAmount method gets called and sets it to equal one less.
+                        inventory.get(i).setAmount(inventory.get(i).getAmount() - 1); // the i postion in inventory setAmount method gets called and sets it to equal one less.
 
                         //**Debug**
                         //System.out.println("Cart size is: "+Cart.size());
 
-                        for(int p = 0; p < Cart.size();p++){  //for int p is = 0 and p is less than the size of cart increment p by 1.
+                        for (int p = 0; p < Cart.size(); p++) {  //for int p is = 0 and p is less than the size of cart increment p by 1.
                             Money.remainingMoney = Money.totalMoney - Cart.get(p).getPrice(); //sets the static var remainingMoney to equal the result of Static var totalmoney and the price of the item selected
-                            System.out.println(Cart.get(p).getName()+" "+Cart.get(p).getPrice()+" Balance remaining: $"+Money.remainingMoney); // prints the the item bought and the price along with the balance remaining
+                            System.out.println(Cart.get(p).getName() + " " + Cart.get(p).getPrice() + " Balance remaining: $" + Money.remainingMoney); // prints the the item bought and the price along with the balance remaining
                             System.out.println(Cart.get(p).printMsg()); // prints out the items message
-                            Money.totalMoney = Money.remainingMoney;
+                            Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
                         }
 
 
@@ -85,23 +89,28 @@ public class SecondMenu {
                 }
 
 
-
                 //**DEBUG** to check how much is left of the Item stock after the selection
                 //System.out.println(inventory.get(i).getAmount());
-
+            } else { //if the funds are less than what the item costs
+                System.err.println("Incorrect Id"); // prints out the error
+                break;
             }
 
+        }
     }
 
 
     public static void finalizeTrans(){
         //logger log
         System.out.println(new String(Money.changeDue(Money.totalMoney ))); //prints out correct change
+        Money.setTotalMoney(0);
+        Log.log("GIVE CHANGE:",Money.remainingMoney, Money.totalMoney ); //logs the action
         VendingMachineCLI.run(); //returns to the main menu after giving the change.
 
 
 
     }
+
 
 
 }

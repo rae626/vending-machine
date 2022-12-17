@@ -32,7 +32,7 @@ public class VendingMachineCLI {
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); // sets String choice equal to String casted result of the method menu.getChoiceFromOptions
-
+			System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney+"\n");
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { //if user selects first option...
 				printInventory(); // calls the printInventory from within the class to display items
 
