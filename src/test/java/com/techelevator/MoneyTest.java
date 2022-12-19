@@ -10,8 +10,7 @@ public class MoneyTest {
     public void testMoneyInserted() {
 
         Money.setTotalMoney(5); //updates the value to the totalMoney variable in the Money class
-
-        Assert.assertEquals(5,Money.totalMoney,0); //this will test the 2 values to make sure they are the same if they are the test will pass
+        Assert.assertEquals(5,Money.getTotalMoney(),0); //this will test the 2 values to make sure they are the same if they are the test will pass
     }
 @Test
 public void testChangeDue() {

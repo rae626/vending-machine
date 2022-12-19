@@ -29,9 +29,10 @@ public class SecondMenu {
     //menu2 Constructor
     public void run2() { //run2 is the second menu when you select purchase from the main menu
 
+        System.out.printf("\n" + "Current Money Provided: $ %.2f" + "\n" , Money.getTotalMoney() );
+
         while (true) { //while the condition is true
             String choice = (String) menu2.getChoiceFromOptions(MENU_OPTIONS); // sets String choice equal to String casted result of the method menu2.getChoiceFromOptions
-            System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney + "\n");
             if (choice.equals(MENU_OPTION_FEEDMONEY)) { //if user selects first option...
                 Money.moneyInserted(); //calls the static method from the money class to add money
 
@@ -60,18 +61,18 @@ public class SecondMenu {
         //Loops the ID string and matches it to an Item object's getID method
         if(itemKeys.containsKey(choice)) { //if the map contains the key stored in String choice.... move on to next if statement
             if(itemKeys.get(choice).getAmount() != 0){ // if the item's getAmount in the map is not 0.... move on to next statement
-                if(Money.totalMoney != 0 && itemKeys.get(choice).getPrice() < Money.totalMoney){ //if total Money is not 0 and the item's getPrice is less than the totalMoney.... move on to next statement
+                if(Money.getTotalMoney() != 0 && itemKeys.get(choice).getPrice() < Money.getTotalMoney()){ //if total Money is not 0 and the item's getPrice is less than the totalMoney.... move on to next statement
 
                     addItemToCart(itemKeys.get(choice).getPos()); //calls on addItemToCart method  and passes along the item's getPos in the map.
 
                 }else{ //if the item price is bigger than the totalMoney or totalMoney IS 0...
-                    System.out.println("INSUFFICIENT Funds.."); //prints error
+                    System.err.println("INSUFFICIENT Funds.."); //prints error
                 }
             }else{  //if the item's getAmount is 0 ....
-                System.out.println("Item is SOLD OUT.."); //prints error
+                System.err.println("Item is SOLD OUT.."); //prints error
             }
         } else{  //if the map does not contain the ID stored in String choice....
-            System.out.println("item ID is NOT VALID.."); //print error
+            System.err.println("item ID is NOT VALID.."); //print error
         }
     }
 
@@ -79,13 +80,13 @@ public class SecondMenu {
         //**Debug**
         //System.out.println("Cart size is: "+Cart.size());
 
-        Cart.add(inventory.get(position)); //adds the item from the inventory List to the cart List
-        inventory.get(position).setAmount(inventory.get(position).getAmount() - 1); // subtracts the item from the inventory List
-        Money.remainingMoney = Money.totalMoney - Cart.get(0).getPrice(); // subtracts the price from your balance
-        System.out.println(Cart.get(0).getName() + " " + Cart.get(0).getPrice() + " Balance remaining: $" + Money.remainingMoney); //prints out name,price and balance after you buy.
+        Cart.add(getInventory().get(position)); //adds the item from the inventory List to the cart List
+        getInventory().get(position).setAmount(getInventory().get(position).getAmount() - 1); // subtracts the item from the inventory List
+        Money.setRemainingMoney(Money.getTotalMoney() - Cart.get(0).getPrice()); // subtracts the price from your balance
+        System.out.printf(Cart.get(0).getName() + " $" + Cart.get(0).getPrice() + " Balance remaining: $ %.2f" + "\n", Money.getRemainingMoney()); //prints out name,price and balance after you buy.
         System.out.println(Cart.get(0).printMsg()); // prints out the items message
-        Money.totalMoney = Money.remainingMoney;  //updates the balance to reflect charges
-        Log.log(Cart.get(0).getName(),Cart.get(0).getPrice(), Money.totalMoney ); //logs the action
+        Money.setTotalMoney(Money.getRemainingMoney());  //updates the balance to reflect charges
+        Log.log(Cart.get(0).getName(),Cart.get(0).getPrice(), Money.getTotalMoney() ); //logs the action
         Cart.clear(); //clears the cart list for the next item
     }
 
@@ -95,9 +96,9 @@ public class SecondMenu {
 
     public static void finalizeTrans(){
         //logger log
-        System.out.println(new String(Money.changeDue(Money.totalMoney ))); //prints out correct change
+        System.out.println(new String(Money.changeDue(Money.getTotalMoney()))); //prints out correct change
         Money.setTotalMoney(0);
-        Log.log("GIVE CHANGE:",Money.remainingMoney, Money.totalMoney ); //logs the action
+        Log.log("GIVE CHANGE:",Money.getRemainingMoney(), Money.getTotalMoney() ); //logs the action
         VendingMachineCLI.run(); //returns to the main menu after giving the change.
 
 

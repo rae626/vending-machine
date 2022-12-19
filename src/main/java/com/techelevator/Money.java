@@ -4,12 +4,10 @@ import com.techelevator.view.Log;
 
 import java.util.Scanner;
 
-import static com.techelevator.VendingMachineCLI.inventory;
-
 public class Money {
 
-    public static double totalMoney = 0.0;
-    public static double remainingMoney = 0.0;
+    private static double totalMoney = 0.0;
+    private static double remainingMoney = 0.0;
     final double FIVE_DOLLAR_BILL = 5.00;
     final double ONE_DOLLAR_BILL = 1.00;
 
@@ -19,6 +17,14 @@ public class Money {
 
 
     public Money() {
+    }
+
+    public static double getRemainingMoney() {
+        return remainingMoney;
+    }
+
+    public static void setRemainingMoney(double remainingMoney) {
+        Money.remainingMoney = remainingMoney;
     }
 
     public double getFIVE_DOLLAR_BILL() {
@@ -50,6 +56,7 @@ public class Money {
     }
 
     public static void moneyInserted() {
+        System.out.printf("\n" + "Current Money Provided: $ %.2f" + "\n" , Money.getTotalMoney() );
         Scanner input = new Scanner(System.in); //created scanner to capture system input.
         System.out.print("Please Insert Money amount: $"); //prints out instruction for user.
         double addedMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.

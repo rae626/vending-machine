@@ -16,7 +16,7 @@ public class VendingMachineCLI {
 
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_Exit };
 
-	public static List<Items> inventory = new ArrayList<>();
+	private static List<Items> inventory = new ArrayList<>();
 
 	public static List<Items> getInventory() {
 		return inventory;
@@ -28,11 +28,15 @@ public class VendingMachineCLI {
 		VendingMachineCLI.menu = menu;
 	}
 
+	static File file = new File("vendingmachine.csv");  //creates a file obj to refrence vendingMachine.csv.
+
 	public static void run() { //this is the main start menu
+
+		System.out.printf("\n" + "Current Money Provided: $ %.2f" + "\n" , Money.getTotalMoney());
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); // sets String choice equal to String casted result of the method menu.getChoiceFromOptions
-			System.out.println("\n" + "Current Money Provided: $" + Money.totalMoney+"\n");
+
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { //if user selects first option...
 				printInventory(); // calls the printInventory from within the class to display items
 
@@ -49,10 +53,10 @@ public class VendingMachineCLI {
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
-		addItemsToInventory(); //restocks the vendingMachine
+		addItemsToInventory(file); //restocks the vendingMachine
 
-		for (int i = 0; i < inventory.size(); i++) { //loops through the inventory to add items to map
-			SecondMenu.itemKeys.put(inventory.get(i).getId(),inventory.get(i)); //add elements to map {key = items ID value = Item object}
+		for (int i = 0; i < getInventory().size(); i++) { //loops through the inventory to add items to map
+			SecondMenu.itemKeys.put(getInventory().get(i).getId(),getInventory().get(i)); //add elements to map {key = items ID value = Item object}
 		}
 		cli.run();
 	}
@@ -64,9 +68,8 @@ public class VendingMachineCLI {
 		second.run2(); // calls the run2 method from SecondMenu to display other options.
 	}
 
-	public static void addItemsToInventory(){
+	public static void addItemsToInventory(File file){
 
-		File file = new File("vendingmachine.csv");  //creates a file obj to refrence vendingMachine.csv.
 		try(Scanner inventoryScanner = new Scanner(file)){   //creates scanner obj to scan the csv file.
 		int counter = 0;
 			while(inventoryScanner.hasNextLine()){   //while the csv file has a nextline.
