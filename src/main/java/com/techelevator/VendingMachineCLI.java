@@ -2,6 +2,7 @@ package com.techelevator;
 
 import com.techelevator.view.*;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ import java.util.Scanner;
 
 public class VendingMachineCLI {
 
-	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
-	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String MAIN_MENU_OPTION_Exit = "Exit";
+	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = TextColors.getYellowTxt() + "Display Vending Machine Items" + TextColors.getResetTxtColor();
+	private static final String MAIN_MENU_OPTION_PURCHASE = TextColors.getGreenTxt() + "Purchase" + TextColors.getResetTxtColor();
+	private static final String MAIN_MENU_OPTION_Exit =  TextColors.getRedTxt() + "Exit" + TextColors.getResetTxtColor();
 
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_Exit };
 
@@ -28,11 +29,10 @@ public class VendingMachineCLI {
 		VendingMachineCLI.menu = menu;
 	}
 
+
 	static File file = new File("vendingmachine.csv");  //creates a file obj to refrence vendingMachine.csv.
 
 	public static void run() { //this is the main start menu
-
-		System.out.printf("\n" + "Current Money Provided: $ %.2f" + "\n" , Money.getTotalMoney());
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); // sets String choice equal to String casted result of the method menu.getChoiceFromOptions
@@ -114,7 +114,7 @@ public class VendingMachineCLI {
 	public static void printInventory(){ //prints out the inventory
 		for (int i=0; i < inventory.size(); i++){ //for i = 0, i is less than the size of inventory, increment i by 1
 			//displays the Item in inventory's i position and returns the ID, the name, the price and the amount of that item.
-			System.out.println(inventory.get(i).getId() + " " + inventory.get(i).getName()+ " " + inventory.get(i).getPrice()+" ("+inventory.get(i).getAmount()+")");
+			System.out.printf(TextColors.getPurpleTxt() + inventory.get(i).getId() + TextColors.getResetTxtColor() + " " + inventory.get(i).getName()+ " " + TextColors.getGreenTxt() + "%.2f" + TextColors.getResetTxtColor() +" ("+inventory.get(i).getAmount()+")" + "\n" , inventory.get(i).getPrice() );
 		}
 	}
 

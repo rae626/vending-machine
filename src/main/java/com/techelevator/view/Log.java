@@ -18,7 +18,7 @@ public class Log {
        String logFile = "./log.txt";
 
     try(PrintWriter writeLog = new PrintWriter(new FileOutputStream(logFile, true))) {
-      writeLog.printf(formattedDateTime + " " + action + " $ %.2f" + " $ %.2f", money1 , money2);
+      writeLog.printf("\n"+formattedDateTime + " " + action + " $ %.2f" + " $ %.2f", money1 , money2);
 
 
     } catch (FileNotFoundException e) {

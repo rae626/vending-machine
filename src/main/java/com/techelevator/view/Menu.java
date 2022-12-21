@@ -1,5 +1,7 @@
 package com.techelevator.view;
 
+import com.techelevator.Money;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -45,6 +47,18 @@ public class Menu {
 	}
 
 	private void displayMenuOptions(Object[] options) {
+
+		//Displays the balance and Title if balance is 0 its red and more than 0 its green.
+		System.out.println("------------------------------------");
+		System.out.println(TextColors.getCyantxt() + "         Vendo-Matic 800" + TextColors.getResetTxtColor());
+		System.out.println("------------------------------------");
+		if(Money.getTotalMoney() == 0) {
+			System.out.printf("\n" + "Current Money Provided: " + TextColors.getRedTxt() + "$ %.2f" + TextColors.getResetTxtColor() + "\n", Money.getTotalMoney());
+		}else {
+			System.out.printf("\n" + "Current Money Provided: " + TextColors.getGreenTxt() + "$ %.2f" + TextColors.getResetTxtColor() + "\n", Money.getTotalMoney());
+		}
+
+
 		out.println();
 		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;

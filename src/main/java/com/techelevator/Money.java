@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.view.Log;
+import com.techelevator.view.TextColors;
 
 import java.util.Scanner;
 
@@ -56,7 +57,15 @@ public class Money {
     }
 
     public static void moneyInserted() {
-        System.out.printf("\n" + "Current Money Provided: $ %.2f" + "\n" , Money.getTotalMoney() );
+        System.out.println("------------------------------------");
+        System.out.println(TextColors.getCyantxt() + "         Vendo-Matic 800" + TextColors.getResetTxtColor());
+        System.out.println("------------------------------------");
+        if(Money.getTotalMoney() == 0) {
+            System.out.printf("\n" + "Current Money Provided: " + TextColors.getRedTxt() + "$ %.2f" + TextColors.getResetTxtColor() + "\n", Money.getTotalMoney());
+        }else {
+            System.out.printf("\n" + "Current Money Provided: " + TextColors.getGreenTxt() + "$ %.2f" + TextColors.getResetTxtColor() + "\n", Money.getTotalMoney());
+        }
+        System.out.println("\n");
         Scanner input = new Scanner(System.in); //created scanner to capture system input.
         System.out.print("Please Insert Money amount: $"); //prints out instruction for user.
         double addedMoney = input.nextDouble(); // double totalMoney is equal to the nextLine of system input.
@@ -75,13 +84,8 @@ public class Money {
             coinsReturned[i] = change / coins[i]; //coinsReturned[] position i = change divided by the value of coins array position i.
             change %= coins[i]; //change is mod or equal to coins array position i
         }
-
-
-
-
-        //System.out.println("Quarters: " + coinsReturned [2] + " Dimes: " + coinsReturned [1] + " Nickels: " + coinsReturned[0] );
         //return coinsReturned;
-        return ("Quarters: " + coinsReturned[2] + " Dimes: " + coinsReturned [1] + " Nickels: " + coinsReturned[0]);
+        return ("\n"+"Your change is :" + "\n" + TextColors.getGreenTxt() +"Quarters: " + TextColors.getResetTxtColor() + coinsReturned[2] + "\n" + TextColors.getGreenTxt() +"Dimes: " + TextColors.getResetTxtColor() + coinsReturned [1] + "\n" + TextColors.getGreenTxt() +"Nickels: " +  TextColors.getResetTxtColor() + coinsReturned[0] );
     }
 }
 
